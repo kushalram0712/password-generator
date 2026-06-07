@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const entropyDisplay = document.getElementById('entropy');
     const copyStatus = document.getElementById('copyStatus');
 
-    // Update length label in real-time
+    // Update length number when slider moves
     lengthInput.addEventListener('input', () => {
         lenVal.innerText = lengthInput.value;
     });
@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const len = parseInt(lengthInput.value);
         const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
         
+        // Cryptographically secure random generation
         const array = new Uint32Array(len);
         window.crypto.getRandomValues(array);
         
@@ -23,20 +24,20 @@ document.addEventListener('DOMContentLoaded', () => {
         
         resultDiv.innerText = password;
         
-        // Update Entropy calculation (bits)
+        // Calculate and update entropy display
         const entropy = Math.floor(len * Math.log2(charset.length));
         entropyDisplay.innerText = `Entropy: ${entropy} bits`;
     });
 
     copyBtn.addEventListener('click', () => {
         const text = resultDiv.innerText;
-        if (text === "Click Generate" || text === "---") return;
+        if (text === "Click Generate") return;
         
         navigator.clipboard.writeText(text).then(() => {
             copyStatus.innerText = "Copied!";
             setTimeout(() => copyStatus.innerText = "", 2000);
         }).catch(err => {
-            console.error('Failed to copy: ', err);
+            console.error('Copy failed:', err);
         });
     });
 });
