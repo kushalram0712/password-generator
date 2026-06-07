@@ -1,15 +1,32 @@
-<div class="container" style="font-family: sans-serif; max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
-    <h2>Secure Password Generator</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; padding: 50px; }
+        .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        .password-display { font-family: monospace; font-size: 1.2rem; background: #2d3436; color: #00ff9f; padding: 1rem; border-radius: 8px; text-align: center; margin: 1rem 0; cursor: pointer; transition: 0.3s; }
+        .password-display:hover { background: #3d4648; }
+        input[type=range] { width: 100%; margin: 10px 0; }
+        button { background: #0984e3; color: white; border: none; padding: 12px; border-radius: 6px; width: 100%; cursor: pointer; font-weight: bold; }
+        button:hover { background: #74b9ff; }
+        .meter { height: 8px; background: #dfe6e9; border-radius: 4px; overflow: hidden; margin: 10px 0; }
+        .meter-bar { height: 100%; width: 0%; transition: 0.5s; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Generator</h2>
+    <label>Length: <span id="lenVal">16</span></label>
+    <input type="range" id="length" min="8" max="64" value="16" oninput="updateUI()">
     
-    <div>
-        <label>Length: <span id="lenVal">16</span></label><br>
-        <input type="range" id="length" min="8" max="64" value="16" oninput="document.getElementById('lenVal').innerText = this.value">
-    </div>
+    <div class="meter"><div id="strengthMeter" class="meter-bar"></div></div>
     
-    <button onclick="generate()" style="margin-top: 10px; padding: 10px; width: 100%;">Generate</button>
-    
-    <div style="margin: 20px 0; padding: 15px; background: #f4f4f4; word-break: break-all; font-family: monospace;" id="result">---</div>
-    
-    <button onclick="copyToClipboard()" style="padding: 10px; width: 100%;">Copy to Clipboard</button>
-    <p id="copyStatus" style="text-align: center; color: green; font-size: 0.8em;"></p>
+    <div class="password-display" id="result" onclick="copyToClipboard()">Click to Generate</div>
+    <button onclick="generate()">Generate New</button>
+    <p id="copyStatus" style="text-align: center; margin-top: 10px; height: 1em;"></p>
 </div>
+
+<script src="script.js"></script>
+</body>
+</html>
