@@ -1,10 +1,10 @@
 :root { --primary: #0984e3; --bg: #f0f2f5; --text: #2d3436; }
-body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); display: flex; justify-content: center; padding: 2rem; color: var(--text); }
-.card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
+body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+.card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+h1 { font-size: 1.5rem; text-align: center; margin-bottom: 1.5rem; }
 .controls { margin-bottom: 1.5rem; }
-.display { background: #2d3436; color: #00ff9f; padding: 1.5rem; border-radius: 8px; text-align: center; font-family: 'Courier New', monospace; font-size: 1.4rem; cursor: pointer; margin: 1rem 0; word-break: break-all; }
-.btn { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 6px; width: 100%; cursor: pointer; font-weight: 600; }
-.btn:hover { filter: brightness(1.1); }
-.meta-info { display: flex; justify-content: space-between; font-size: 0.85rem; color: #636e72; }
-
-
+.password-display { background: #2d3436; color: #00ff9f; padding: 1rem; border-radius: 8px; text-align: center; font-family: monospace; font-size: 1.2rem; margin: 1rem 0; word-break: break-all; }
+.btn { border: none; padding: 12px; border-radius: 6px; width: 100%; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; }
+.btn:hover { filter: brightness(1.2); }
+#generateBtn { background-color: var(--primary); }
+.meta-info { display: flex; justify-content: space-between; margin-top: 15px; font-size: 0.8rem; color: #636e72; }
