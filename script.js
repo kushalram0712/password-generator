@@ -9,6 +9,13 @@ function updateUI() {
     meter.style.backgroundColor = len < 12 ? "#d63031" : (len < 20 ? "#fdcb6e" : "#00b894");
 }
 
+function calculateEntropy(length) {
+    // A simplified entropy calculation: L * log2(charset_size)
+    const charsetSize = 94; // Standard printable ASCII
+    const entropy = length * Math.log2(charsetSize);
+    return Math.floor(entropy);
+}
+
 function generate() {
     const length = document.getElementById('length').value;
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
@@ -19,6 +26,10 @@ function generate() {
     for (let i = 0; i < length; i++) {
         password += charset[array[i] % charset.length];
     }
+
+    const entropy = calculateEntropy(length);
+    document.getElementById('entropyDisplay').innerText = `Entropy: ${entropy} bits`;
+ 
     
     document.getElementById('result').innerText = password;
 }
