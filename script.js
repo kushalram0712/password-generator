@@ -1,45 +1,42 @@
-function updateUI() {
-    const len = document.getElementById('length').value;
-    document.getElementById('lenVal').innerText = len;
-    
-    // Update color based on length (NIST recommends 8+, but 16+ is safer)
-    const meter = document.getElementById('strengthMeter');
-    const percent = (len / 64) * 100;
-    meter.style.width = percent + "%";
-    meter.style.backgroundColor = len < 12 ? "#d63031" : (len < 20 ? "#fdcb6e" : "#00b894");
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const lengthInput = document.getElementById('length');
+    const lenVal = document.getElementById('lenVal');
+    const resultDiv = document.getElementById('result');
+    const generateBtn = document.getElementById('generateBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const entropyDisplay = document.getElementById('entropy');
+    const copyStatus = document.getElementById('copyStatus');
 
-function calculateEntropy(length) {
-    // A simplified entropy calculation: L * log2(charset_size)
-    const charsetSize = 94; // Standard printable ASCII
-    const entropy = length * Math.log2(charsetSize);
-    return Math.floor(entropy);
-}
-
-function generate() {
-    const length = document.getElementById('length').value;
-    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
-    let password = "";
-    const array = new Uint32Array(length);
-    window.crypto.getRandomValues(array);
-    
-    for (let i = 0; i < length; i++) {
-        password += charset[array[i] % charset.length];
-    }
-
-    const entropy = calculateEntropy(length);
-    document.getElementById('entropyDisplay').innerText = `Entropy: ${entropy} bits`;
- 
-    
-    document.getElementById('result').innerText = password;
-}
-
-function copyToClipboard() {
-    const text = document.getElementById('result').innerText;
-    if (text === "Click to Generate") return;
-    navigator.clipboard.writeText(text).then(() => {
-        const status = document.getElementById('copyStatus');
-        status.innerText = "Copied!";
-        setTimeout(() => status.innerText = "", 2000);
+    // Update length label in real-time
+    lengthInput.addEventListener('input', () => {
+        lenVal.innerText = lengthInput.value;
     });
-}
+
+    generateBtn.addEventListener('click', () => {
+        const len = parseInt(lengthInput.value);
+        const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+        
+        const array = new Uint32Array(len);
+        window.crypto.getRandomValues(array);
+        
+        const password = Array.from(array, x => charset[x % charset.length]).join('');
+        
+        resultDiv.innerText = password;
+        
+        // Update Entropy calculation (bits)
+        const entropy = Math.floor(len * Math.log2(charset.length));
+        entropyDisplay.innerText = `Entropy: ${entropy} bits`;
+    });
+
+    copyBtn.addEventListener('click', () => {
+        const text = resultDiv.innerText;
+        if (text === "Click Generate" || text === "---") return;
+        
+        navigator.clipboard.writeText(text).then(() => {
+            copyStatus.innerText = "Copied!";
+            setTimeout(() => copyStatus.innerText = "", 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    });
+});
