@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIST Secure Generator</title>
+    <title>NIST Secure Password Generator</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
     <div class="card">
-        <h2>Secure Generator</h2>
+        <h1>Secure Generator</h1>
+        
         <div class="controls">
-            <label>Length: <span id="lenVal">16</span></label>
+            <label for="length">Password Length: <span id="lenVal">16</span></label>
             <input type="range" id="length" min="8" max="64" value="16">
         </div>
         
         <div class="password-display" id="result">Click Generate</div>
         
         <button class="btn" id="generateBtn">Generate New Password</button>
-        <button class="btn" id="copyBtn" style="margin-top: 10px; background: #636e72;">Copy to Clipboard</button>
+        <button class="btn" id="copyBtn" style="margin-top: 10px; background-color: #636e72;">Copy to Clipboard</button>
         
-        <div class="meta-info" style="margin-top: 15px;">
+        <div class="meta-info">
             <span id="entropy">Entropy: 0 bits</span>
             <span id="copyStatus"></span>
         </div>
